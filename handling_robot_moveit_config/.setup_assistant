@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: handling_robot_description
+    relative_path: urdf/handling_robot.urdf.xacro
+    xacro_args: ""
+  SRDF:
+    relative_path: config/handling_robot.srdf
+  CONFIG:
+    author_name: Yasui Kazuya
+    author_email: x3031133@edu.gifu-u.ac.jp
+    generated_timestamp: 1641026843

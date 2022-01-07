@@ -1,0 +1,26 @@
+<robot name="handling_robot" xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro"/>
+    <xacro:include filename="$(find denso_robot_descriptions)/vp6242_description/vp6242.urdf"/>
+    <joint name="arm_zig" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 ${3 * pi / 2}"/>
+        <parent link="J6"/>
+        <child link="zig"/>
+    </joint>
+    <link name="zig">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://handling_robot_description/mesh/zig.stl" scale="1 1 1"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://handling_robot_description/mesh/zig.stl" scale="1 1 1"/>
+            </geometry>
+        </collision>
+    </link>
+    <xacro:sensor_d435 parent="zig" use_nominal_extrinsics="false" add_plug="false" use_mesh="true">
+        <origin xyz="-0.0642 0 0.01825" rpy="0 ${3 * pi / 2} 0"/>
+    </xacro:sensor_d435>
+</robot>

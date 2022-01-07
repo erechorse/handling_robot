@@ -1,0 +1,40 @@
+<launch>
+  <!-- Override robot_name argument -->
+  <arg name="robot_name" default="handling_robot" />
+
+  <arg name="ip_address" default="192.168.0.1" />
+
+  <!-- If you want to change send and recieve format of handling_robot_control, -->
+  <!-- you can specify the send_format and recv_format parameters -->
+  <arg name="send_format" default="288" />
+  <arg name="recv_format" default="292" />
+
+  <arg name="bcap_slave_control_cycle_msec" default="8" />
+
+  <!-- load the robot_description parameter before launching ROS-I nodes -->
+  <include file="$(find handling_robot_moveit_config)/launch/planning_context.launch" >
+    <arg name="load_robot_description" value="true" />
+  </include>
+
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="use_gui" value="false"/>
+    <param name="publish_frequency" type="double" value="125.0" />
+    <rosparam param="source_list" subst_value = "true">[/$(arg robot_name)/joint_states]</rosparam>
+  </node>
+
+  <include file="$(find handling_robot_bringup)/launch/handling_robot_control.launch">
+    <arg name="robot_name" value="$(arg robot_name)" />
+    <arg name="ip_address" value="$(arg ip_address)" />
+    <arg name="send_format" value="$(arg send_format)" />
+    <arg name="recv_format" value="$(arg recv_format)" />
+    <arg name="bcap_slave_control_cycle_msec" value="$(arg bcap_slave_control_cycle_msec)" />
+  </include>
+
+  <include file="$(find handling_robot_moveit_config)/launch/move_group.launch">
+    <arg name="publish_monitored_planning_scene" value="true" />
+  </include>
+
+  <include file="$(find handling_robot_moveit_config)/launch/moveit_rviz.launch">
+    <arg name="rviz_config" value="$(find handling_robot_moveit_config)/launch/moveit.rviz"/>
+  </include>
+</launch>

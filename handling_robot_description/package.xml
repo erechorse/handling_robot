@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>handling_robot_description</name>
+  <version>0.0.0</version>
+  <description>The handling_robot_description package</description>
+  <maintainer email="x3031133@edu.gifu-u.ac.jp">Yasui Kazuya</maintainer>
+  <license>TODO</license>
+
+  <build_depend>denso_robot_descriptions</build_depend>
+  <build_depend>realsense2_description</build_depend>
+  <buildtool_depend>catkin</buildtool_depend>
+</package>
